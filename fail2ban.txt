@@ -1,0 +1,33 @@
+Install fail2ban
+
+sudo dnf update -y
+
+sudo dnf install epel-release -y
+
+sudo dnf update -y
+
+sudo dnf install fail2ban -y
+
+sudo cp /etc/fail2ban/jail.conf  /etc/fail2ban/jail.local
+
+sudo vim /etc/fail2ban/jail.d/sshd.local
+
+add following
+[sshd]
+enabled = true
+findtime = 3600
+maxretry = 3
+bantime = 10m
+
+save the file.
+
+sudo systemctl start fail2ban
+
+sudo systemctl enable fail2ban
+
+Now from another client ssh to this system and give wrong password for 3 times.
+
+sudo fail2ban-client status
+
+sudo fail2ban-client status sshd
+
