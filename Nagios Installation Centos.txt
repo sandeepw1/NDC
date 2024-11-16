@@ -34,6 +34,8 @@ Installing Nagios Plug-in
 8. ./configure
 9. make
 10. make install
+11. yum install nagios-plugins-nrpe -y
+12. cp /usr/lib64/nagios/plugins/check_nrpe  /usr/local/nagios/libexec/
 --------------------------------------------------------------------------
 Install Linux Host
 
