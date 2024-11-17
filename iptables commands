@@ -1,0 +1,44 @@
+Suppose we want to prevent potential brute force attempts to guess valid username and password combinations for the Secure Shell (SSH) service.
+
+In this scenario, we can use packet rate limiting rules to limit the number of connections to the SSH port from the same IP address. Let’s use the following iptables commands to achieve this:
+
+
+iptables -I INPUT -p tcp --dport 22 -m state --state NEW -m recent --set
+iptables -I INPUT -p tcp --dport 22 -m state --state NEW -m recent --update --seconds 120 --hitcount 10 -j DROP
+
+
+The above commands use the iptables extension recent, which allows us to dynamically create a list of IP addresses and match against them in different ways. In this example, we instruct iptables to drop connections from any IP address if it attempts to open more than 10 connections to the SSH port (22/tcp) within 120 seconds (two minutes).
+By using the NEW state, only new connections are impacted by this rule, not established ones.
+
+Allowing Established and Related Incoming Connections
+
+sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+Dropping Invalid Packets
+sudo iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
+
+Blocking an IP Address
+sudo iptables -A INPUT -s 203.0.113.51 -j DROP
+
+limit
+This module must be explicitly specified with `-m limit’ or `–match limit’. It is used to restrict the rate of matches, such as for suppressing log messages. It will only match a given number of times per second (by default 3 matches per hour, with a burst of 5). It takes two optional arguments:
+–limit
+followed by a number; specifies the maximum average number of matches to allow per second. The number can specify units explicitly, using `/second’, `/minute’, `/hour’ or `/day’, or parts of them (so `5/second’ is the same as `5/s’).
+–limit-burst
+followed by a number, indicating the maximum burst before the above limit kicks in.
+
+Syn-flood protection:
+
+# iptables -A FORWARD -p tcp --syn -m limit --limit 1/s -j ACCEPT
+Furtive port scanner:
+
+# iptables -A FORWARD -p tcp --tcp-flags SYN,ACK,FIN,RST RST \
+-m limit --limit 1/s -j ACCEPT
+Ping of death:
+
+# iptables -A FORWARD -p icmp --icmp-type echo-request -m limit \
+--limit 1/s -j ACCEPT
+
+
+
+
