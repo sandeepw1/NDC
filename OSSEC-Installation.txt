@@ -1,0 +1,93 @@
+Install OSSEC HIDS on Centos 9 
+
+disable selinux.
+setenforce 0
+yum install zlib-devel pcre2-devel make gcc sqlite-devel openssl-devel libevent-devel systemd-devel automake autoconf epel-release -y
+yum install -y https://rpms.remirepo.net/enterprise/remi-release-9.rpm
+yum module list php
+yum module enable php:remi-7.4 -y
+yum install -y php php-cli php-common php-fpm
+
+wget https://github.com/ossec/ossec-hids/archive/3.7.0.tar.gz
+
+tar xvzf 3.7.0.tar.gz
+cd ossec-hids-3.7.0
+./install.sh
+
+Answer the questions asked. 
+
+Select local installation option.
+
+Select y or n as per your requirements to enable or disable a feature.
+
+Start OSSEC using following command.
+/var/ossec/bin/ossec-control start
+
+
+Configure OSSEC
+
+vi /var/ossec/etc/ossec.conf
+add a line to report new file addition to the server.
+<syscheck> 
+    <!-- Frequency that syscheck is executed - default to every 22 hours --> 
+    <frequency>79200</frequency> 
+    <alert_new_files>yes</alert_new_files>
+
+
+Also change following lines 
+<directories check_all="yes">/etc,/usr/bin,/usr/sbin</directories> 
+<directories check_all="yes">/bin,/sbin</directories>
+to as below.
+
+<directories report_changes="yes" realtime="yes" check_all="yes">/etc,/usr/bin,/usr/sbin</directories> 
+<directories report_changes="yes" realtime="yes" check_all="yes">/var/www,/bin,/sbin</directories>
+
+Save the file.
+
+Now go to the /var/ossec/rules directory and edit the local_rules.xml file.
+
+vi /var/ossec/rules/local_rules.xml
+
+Add following lines
+
+<rule id="554" level="7" overwrite="yes"> 
+    <category>ossec</category> 
+    <decoded_as>syscheck_new_entry</decoded_as> 
+    <description>File added to the system.</description> 
+    <group>syscheck,</group> 
+</rule>
+
+save the file. 
+
+Restart the OSSEC
+/var/ossec/bin/ossec-control restart
+
+Install OSSEC web user interface.
+
+wget https://github.com/ossec/ossec-wui/archive/master.zip
+
+unzip master.zip
+
+mv ossec-wui-master /var/www/html/ossec
+
+cd /var/www/html/ossec
+
+./setup.sh
+
+provide username and password.
+Specify the web server user as apache.
+Once the setup is successful, restart the web server.
+systemctl restart apache2
+
+Access the OSSEC web user interface.
+
+open browser and go to the following URL. (Replace your IP address)
+
+http://machine-ip/ossec
+
+Test OSSEC.
+Go to /etc directory. Modify the /etc/fstab and /etc/resolv.conf file by just adding a #.
+
+Check the logs on Web UI.
+
+The OSSEC logs are in the /var/ossec/logs/alerts/alerts.log file.
