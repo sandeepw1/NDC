@@ -1,20 +1,51 @@
-nginx.conf
+This lab requires 3 virtual machines. All the 3 virtual machines can be a minimal install. Keep the network card of all these 3 machines in the NAT mode. Here 3 Rocky Linux minimal install VM's are considered. Make sure SELINUX is disabled or Permissive on Rocky Linux.
 
+On 2 of these VM's install apache web server. 
 
-http {
-		
-	server {
-		listen 80;
-		location / {
-		proxy_pass http://backend/;
-	}	
-	}
-}
+sudo yum install httpd -y      # for Ubuntu use command  sudo apt install apache2 -y
+
+Once the web server is installed, create an index.html file in /var/www/html directory. Make sure to add the server IP address in the content. Thus you will know during lab results that which page is served by which webserver.
+
+Start the apache web server. Also open the port in the firewall.
+
+use sudo firewall-cmd --add-service=http and sudo firewall-cmd --add-service=http --permanent commands.
+
+# For ubuntu use sudo ufw allow http
+
+On the 3rd virtual machine install nginx server.
+
+sudo  yum install nginx -y       # for ubuntu use  sudo spt install nginx -y
+
+Start the nginx service - sudo systemctl start nginx.
+
+Open the port in the firewall. 
+
+sudo firewall-cmd --add-service=http and sudo firewall-cmd --add-service=http --permanent
+
+This virtual machine will work as a front end for the clients. All clients will connect to the IP address of this virtual machine. 
+Open any browser on your main laptops OS(Windows). Type IP address of the nginx server. The nginx default webpage should be displayed. 
+You can configure nginx as a Reverse Proxy or as a Load balancer. 
+Here first we will configure the nginx as a Reverse Proxy. 
 
 nginx as reverse proxy
 
-location /examples {
-  proxy_pass http://192.168.10.1/;
+copy the original nginx.conf file. 
+sudo cp /etc/nginx/nginx.conf  ~                           # this will copy the file to the user's home directory
+Edit the nginx configuration file. 
+sudo vi /etc/nginx/nginx.conf 
+
+Go to the server section. 
+
+Put # for these 3 lines.
+ #listen       [::]:80;
+ #server_name  _;
+ #root         /usr/share/nginx/html;
+include /etc/nginx/default.d/*.conf;
+
+Type following below above lines. 
+
+location /  {
+  proxy_pass http://first-apache-server-IP/;
   proxy_buffering off;
   proxy_set_header X-Real-IP $remote_addr;
   proxy_set_header X-Forwarded-Host $host;
@@ -22,3 +53,64 @@ location /examples {
   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
   proxy_set_header X-Forwarded-Proto $scheme;
 }
+
+location /courses {
+  proxy_pass http://second-apache-server-IP/;
+  proxy_buffering off;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-Host $host;
+  proxy_set_header X-Forwarded-Port $server_port;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header X-Forwarded-Proto $scheme;
+}
+Save the file. Restart the nginx service.
+
+sudo systemctl restart nginx. 
+
+Now go to the browser in the Windows. Type nginx server IP address. This time you should get the webpage from the first apache webserver in the backend. Now type nginx-server-IP/courses and Enter. This time you should get the second apache webserver webpage.
+This is how the nginx is configured as a reverse proxy successfully.
+################################################################################################################################
+nginx as  Load Balancer
+
+Replace the above nginx.conf file with the original one.
+
+sudo cp -f ~/nginx.conf  /etc/nginx/
+
+Edit the file 
+
+sudo vi /etc/nginx/nginx.conf
+
+Go to the server section. 
+
+Put # for these 3 lines.
+ #listen       [::]:80;
+ #server_name  _;
+ #root         /usr/share/nginx/html;
+include /etc/nginx/default.d/*.conf;
+Type following below the above line.
+       upstream  backend {
+		server  first-apache-server-IP;
+		server  second-apache-server-IP;
+}
+		
+	server {
+		listen 80;
+		location / {
+		proxy_pass http://backend/;
+	}	
+}
+save the file.
+Restart the nginx service.
+
+sudo systemctl restart nginx
+
+Now go to the Windows browser. Type the IP address of the nginx server machine. 
+Web page from one of the server will be displayed. Refresh the page. Now webpage from the second server will be displayed. 
+Each time you refresh the page your request is sent to a different backend server. This is because the default load balancer algorithm is round robin.
+Please refer to the file "nginx Load Balancing Methods.txt" file for the different algorithms used by the nginx.
+
+
+
+
+
+
