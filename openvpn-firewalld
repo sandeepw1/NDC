@@ -1,0 +1,8 @@
+sudo firewall-cmd --permanent --add-service=openvpn
+sudo firewall-cmd --permanent --zone=trusted --add-service=openvpn
+sudo firewall-cmd --permanent --zone=trusted --change-interface=tun0
+sudo firewall-cmd --add-masquerade
+sudo firewall-cmd --permanent --add-masquerade
+sudo firewall-cmd --permanent --direct --passthrough ipv4 -t nat -A POSTROUTING -s 10.8.0.0/24 \
+-o ens160 -j MASQUERADE
+sudo firewall-cmd --reload
