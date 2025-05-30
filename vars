@@ -1,0 +1,18 @@
+set_var EASYRSA "$PWD"
+set_var EASYRSA_PKI "$EASYRSA/pki"
+set_var EASYRSA_DN "cn_only"
+set_var EASYRSA_REQ_COUNTRY "IN"
+set_var EASYRSA_REQ_PROVINCE "Maharastra"
+set_var EASYRSA_REQ_CITY "Pune"
+set_var EASYRSA_REQ_ORG "Demo Labs"
+set_var EASYRSA_REQ_EMAIL ""
+set_var EASYRSA_REQ_OU "Demo Labs CA"
+set_var EASYRSA_KEY_SIZE 2048
+set_var EASYRSA_ALGO rsa
+set_var EASYRSA_CA_EXPIRE 7500
+set_var EASYRSA_CERT_EXPIRE 365
+set_var EASYRSA_NS_SUPPORT "no"
+set_var EASYRSA_NS_COMMENT "Demo Labs"
+set_var EASYRSA_EXT_DIR "$EASYRSA/x509-types"
+set_var EASYRSA_SSL_CONF "$EASYRSA/openssl-easyrsa.cnf"
+set_var EASYRSA_DIGEST "sha256"
