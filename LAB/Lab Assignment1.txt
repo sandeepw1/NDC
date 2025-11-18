@@ -1,0 +1,83 @@
+Configure Network Firewall
+
+############# On Firewall VM ##############
+
+Configure IP Forwarding on the firewall VM.
+
+echo 1 | sudo tee /proc/sys/net/ipv4_forward
+
+To make it permanent
+
+sudo vi /etc/sysctl.conf and add following
+
+net.ipv4.ip_forward = 1
+
+Save the file.
+
+Enable NAT rule to allow LAN clients to access Internet
+
+sudo iptables -t nat -A POSTROUTING -s 192.168.100.0/24  -o ens133(NAT Interface) -j MASQUERADE
+
+check with 
+
+sudo iptables -t nat -L 
+
+By default the forward rule blocks all the traffic. As this is a network firewall, it will forward all the LAN client traffic to internet. 
+Thus we will add a rule above this rule to allow our LAN network to access internet.
+
+sudo iptables -I FORWARD 1 -s 192.168.100.0/24 -j ACCEPT
+
+check with
+
+sudo iptables -L FORWARD
+
+In the FORWARD chain 2 rules should be present. 
+
+Assign manual IP address of 192.168.100.1 to the host only (second adapter) of the Firewall VM. 
+
+################# On client VM's ###############
+
+Assign manual IP address to client1 as 192.168.100.10. Assign default for client1 as 192.168.100.1. Assign 192.168.72.20 as the DNS address. 
+
+Similarly assign 192.168.100.20 to the client2 and also specify default gateway and DNS as above.
+
+Check if both the clients are able to access the Internet. 
+
+In case if the Internet is not opening add following rule.
+#################### on Firewall VM ##################
+sudo iptables -I FORWARD 2 -d 192.168.100.0/24 -j ACCEPT 
+
+Now check if the Internet is working on clients. 
+
+Check if cdac website is opening on both the clients. 
+
+################# on Firewall VM ##############
+Now block the CDAC website for client1.
+
+sudo  iptables -I 1 FORWARD -s 192.168.100.10 -d www.cdac.in -p tcp --dport 443 -j REJECT
+
+check with 
+
+sudo iptables -L FORWARD
+
+Now go to the client1 and check if the cdac website is opening.
+
+Similarly now configure following.
+
+Block www.micromax.in website for the client2.
+Block the Microsoft website for the client1.
+Block oracle.com for the entire network.
+
+Check from the clients if the rules are working. 
+
+If the rules are working restart the Firewall VM using sudo init 6
+
+
+
+
+
+
+
+
+
+

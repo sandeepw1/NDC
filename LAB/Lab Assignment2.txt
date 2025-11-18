@@ -1,0 +1,18 @@
+After restart check if the clients can access the Internet?
+
+This is because you did not save the iptables rules. Thus iptables went to the default ruleset. 
+
+Now again configure NAT rule. 
+
+Add following rules in the forward chain of filter table.
+
+From your network allow DNS traffic to 192.168.72.20  DNS server.
+Allow traffic from 192.168.72.20 DNS server to your network.
+
+Now allow Microsoft website for client1.
+Allow cdac website from both the clients.
+Allow www.micromax.in website for client2. 
+Allow Netflix to client2 
+Allow jiohotstar to client1.
+
+Check if other websites are opening? 
