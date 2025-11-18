@@ -1,0 +1,11 @@
+Block ping to the Gateway IP from both the clients. 
+Block ping from client1 to client2 .
+Save the rules on the firewall VM.
+Flush the rules in the FORWARD chain of the Firewall VM.
+Now install apache web server on client1. Start the service. Add your index.html file.
+Block access to this website from Firewall VM. Only Client2 should be able to access it.
+Check if you can access the client1 website from Firewall VM.
+Check if you can access the client1 website from Client 2 vm.
+Allow SSH to firewall VM only from Client2 VM.
+Check ssh to firewall vm from client1. 
+Check ssh to firewall vm from client2
