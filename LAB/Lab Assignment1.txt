@@ -4,7 +4,7 @@ Configure Network Firewall
 
 Configure IP Forwarding on the firewall VM.
 
-echo 1 | sudo tee /proc/sys/net/ipv4_forward
+echo 1 | sudo tee /proc/sys/net/ipv4/ip_forward
 
 To make it permanent
 
@@ -71,6 +71,7 @@ Block oracle.com for the entire network.
 Check from the clients if the rules are working. 
 
 If the rules are working restart the Firewall VM using sudo init 6
+
 
 
 
