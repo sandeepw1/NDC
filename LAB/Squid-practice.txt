@@ -1,0 +1,8 @@
+Install Squid proxy on Firewall VM.
+Configure squid with following.
+The default rule should be deny all for your network.
+Allow following websites for client1 - All cloud websites - amazon, azure, google, heroku, render, IBM
+Allow following websites for client2 - All OS websites - oracle, redhat, centos, ubuntu, vmware, microsoft
+Allow websites based on words for all network - Allowed words- python, java, perl, dotnet, php, mysql 
+Allow websites on specific time for all network - Allow from 14:00 to  20:00 - micromax.in cdac.in, gmail.com, outlook.com
+Allow these websites all the time for the network - google, hdfc bank, axis bank, sbi bank, .gov.in websites
