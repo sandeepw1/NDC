@@ -1,0 +1,5 @@
+Install web server on client1 and client2.
+Configure port forwarding on Firewall so that the client2 website is available on the external IP address of the firewall. The client1 website should be available on port 5000 of the external IP of the firewall.
+
+Delete REJECT rule from FORWARD chain of firewall and check.
+

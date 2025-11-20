@@ -1,0 +1,5 @@
+Install fail2ban on the firewall server and client1.
+Configure SSHD jail. After 6 attempts  within 3000 seconds the IP should be blocked for 5m. Apply incremental ban. Keep ban factor as 1. 
+
+Verify doing ssh with wrong password from client2.
+ 
