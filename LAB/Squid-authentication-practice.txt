@@ -28,4 +28,22 @@ Adding password for user user1
 Now configure Client browser to use proxy server.
 Check if browser asks for username and password.
 Try login as user1 and password given.
+Create 2 users by name student1 and student2. Assign passwords to these users. Use htpasswd command.
+Allow student1 to access - microsoft, redhat, docker, oracle websites
+Allow student2 to access - bank websites.
+Allow entire network google and wikipedia website.
+
+add following to squid.conf
+acl authenticated_users proxy_auth REQUIRED
+
+
+acl student1_sites dstdomain "/etc/squid/student1_allowed_sites.txt"
+http_access allow authenticated_users student1 student1_sites
+
+Add similar above 2 lines for providing access to student2 user.
+
+The student1_allowed_sites.txt contains sites allowed for student1
+
+
+
 
