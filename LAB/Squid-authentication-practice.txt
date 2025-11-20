@@ -1,0 +1,31 @@
+Configure SQUID Proxy with basic authentication.
+Follow The steps (Use sudo if required)
+dnf -y install httpd-tools 
+vi /etc/squid/squid.conf
+
+# line 28 : add follows for Basic auth
+
+auth_param basic program /usr/lib64/squid/basic_ncsa_auth /etc/squid/.htpasswd
+auth_param basic children 5
+auth_param basic realm Squid Basic Authentication
+auth_param basic credentialsttl 5 hours
+acl password proxy_auth REQUIRED
+http_access allow password
+
+Save the file.
+
+systemctl restart squid 
+
+add a user : create a new file with [-c] option
+
+[root@prox ~]# htpasswd -c /etc/squid/.htpasswd user1
+
+New password:     # set password
+
+Re-type new password:
+Adding password for user user1
+
+Now configure Client browser to use proxy server.
+Check if browser asks for username and password.
+Try login as user1 and password given.
+
