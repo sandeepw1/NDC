@@ -1,0 +1,12 @@
+Install hping3 on a virtual machine.
+Use following hping3 commands to perform attack against your firewall.
+Make sure port forwarding is enabled in the firewall
+Basic Ping Scan - hping3 -1 NAT-IP-Firewall -c 5
+TCP SYN scan for a port - hping3 -S NAT-IP-Firewall -p 80 
+FIN Scan - hping3 -F NAT-IP-Firewall -p 80 
+ACK Scan -  hping3 -A NAT-IP-Firewall -p 80 
+Testing Stateful vs Stateless -  hping3 -S NAT-IP-Firewall -p 80 --fast 
+Fragmented Packets -  hping3 -S NAT-IP-Firewall -p 80 -f
+SYN Flood -  hping3 -S NAT-IP-Firewall -p 80 --flood
+SYN Flood - random source IP -  hping3 -S NAT-IP-Firewall -p 80 --random-source --flood
+Now apply iptables rules to protect against these attacks.
