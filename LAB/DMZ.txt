@@ -16,3 +16,5 @@ Allow SSH from LAN client to DMZ client.
 Find out the IP addresses of Centos repositories and epel-release repository.
 Allow only traffic to these repositories from the DMZ client.
 No other website should open from the DMZ client.
+
+DMZ client website should be accessible from your windows 
