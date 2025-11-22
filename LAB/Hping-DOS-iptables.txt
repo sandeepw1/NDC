@@ -1,6 +1,11 @@
 Install hping3 on a virtual machine.
+yum install epel-release -y
+yum update -y 
+yum install hping3 -y 
+
 Use following hping3 commands to perform attack against your firewall.
 Make sure port forwarding is enabled in the firewall
+
 Basic Ping Scan - hping3 -1 NAT-IP-Firewall -c 5
 TCP SYN scan for a port - hping3 -S NAT-IP-Firewall -p 80 
 FIN Scan - hping3 -F NAT-IP-Firewall -p 80 
