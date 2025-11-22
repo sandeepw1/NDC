@@ -1,0 +1,12 @@
+Confiure iptables DMZ with following configuration.
+
+NAT interface of Firewall - DHCP
+LAN Interface of Firewall - 192.168.15.5 
+DMZ Interface of Firewall - 192.168.25.5
+
+Client in LAN IP - 192.168.15.20
+Client in DMZ IP - 192.168.25.20
+
+Perform port forwarding for DMZ client
+
+Allow internet access to both LAN and DMZ clients - use conntrack 
