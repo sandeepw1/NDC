@@ -1,0 +1,2 @@
+Install GeoIP blocking module on the network firewall.
+Write a rule to block all outgoing traffic to a specific country and check from the LAN client.
