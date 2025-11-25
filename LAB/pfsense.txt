@@ -14,3 +14,15 @@ Development department users are allowed to access Microsoft, Redhat, Oracle, Do
 All other department users are allowed to access only google, wikipedia, and news sites.
 
 Allow google, bing, cdac websites for all users. 
+
+
+Add following rules to the firewall.
+
+Block ping to 192.168.72.20 from one of the client.
+Block the pfsense admin website for one of the client.
+Try FTP to following IP addresses. 
+Block free online ftp servers - 
+194.108.117.16
+ 85.188.1.133
+207.210.46.249
+Now again try from the client ? Are they able to get FTP prompt?
