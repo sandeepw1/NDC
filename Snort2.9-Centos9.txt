@@ -79,6 +79,37 @@ Press ctrl+c to terminate ping after 3 to 4 packets.
 Now go to the terminal where snort is running. Check if the alerts are displayed.
 press ctrl+c to terminate snort.
 
+Add snort as a service.
+
+sudo vi /etc/systemd/system/snort.service
+[Unit]
+Description=Snort 2.9 IDS/IPS
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=/usr/sbin/snort -A fast -D -q -c /etc/snort/snort.conf -i ens160 
+ExecStop=/bin/kill -SIGINT $MAINPID
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+save the file.
+
+sudo systemctl daemon-reload
+
+sudo systemctl start snort
+sudo systemctl status snort
+
+If it is working then enable the service
+
+sudo systemctl enable snort
+
+Note- You may have to disable SELinux.
+
 
 
 
