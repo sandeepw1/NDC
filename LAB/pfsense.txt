@@ -1,0 +1,16 @@
+Install and configure pfsense firewall. 
+
+Provide following IP address as per your Host network
+Pfsense LAN IP - 192.168.100.10
+Client1 IP - 192.168.100.20
+Client2 IP - 192.168.100.30
+
+Sales department users are allowed to access all shopping sites and the social networking sites. All other sites should be blocked.
+
+Accounts department users are allowed to access all banking sites and government sites (gov.in). All other sites should be blocked.
+
+Development department users are allowed to access Microsoft, Redhat, Oracle, Docker, IBM. All other websites should be blocked.
+
+All other department users are allowed to access only google, wikipedia, and news sites.
+
+Allow google, bing, cdac websites for all users. 
