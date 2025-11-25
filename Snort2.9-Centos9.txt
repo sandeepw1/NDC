@@ -1,0 +1,84 @@
+sudo dnf update -y
+sudo dnf install -y epel-release
+sudo yum config-manager --set-enabled crb
+sudo yum update -y
+sudo dnf install -y gcc gcc-c++ libnetfilter_queue-devel git flex bison zlib zlib-devel pcre pcre-devel libdnet libdnet-devel libnghttp2 wget xz-devel
+cd                  #go to the home directory
+wget https://www.snort.org/downloads/snort/snort-2.9.20-1.f35.x86_64.rpm
+sudo yum localinstall snort-2.9.20-1.f35.x86_64.rpm -y
+ sudo ln -s /usr/lib64/libdnet.so.1.0.1 /usr/lib64/libdnet.1
+ Check if snort is installed and working
+
+ sudo snort -V
+
+ sudo vi /etc/snort/snort.conf
+
+ # Setup your LAN network addresses
+ 
+ipvar HOME_NET network-add/24
+
+# Set up the external network addresses.
+
+ipvar EXTERNAL_NET !$HOME_NET
+
+# Path to your rules files.
+
+var RULE_PATH /etc/snort/rules
+var SO_RULE_PATH /etc/snort/so_rules
+var PREPROC_RULE_PATH /etc/snort/preproc_rules
+
+# Set the absolute path appropriately
+
+var WHITE_LIST_PATH /etc/snort/rules
+var BLACK_LIST_PATH /etc/snort/rules
+
+Set the log option.
+# unified2
+# Recommended for most installs
+output unified2: filename snort.log, limit 128
+
+At the end of the file .
+
+include $RULE_PATH/local.rules
+
+Save the file.
+
+sudo touch /etc/snort/rules/white_list.rules
+sudo touch /etc/snort/rules/black_list.rules
+sudo touch /etc/snort/rules/local.rules
+sudo mkdir /usr/local/lib/snort_dynamicrules
+sudo chown -R snort:snort /usr/local/lib/snort_dynamicrules
+
+Test snort installation
+
+sudo snort -T -c /etc/snort/snort.conf
+
+If you get following message at the end
+Snort successfully validated the configuration!
+then the snort is successfully installed.
+
+Now create a test rule in the local.rules file
+sudo vi /etc/snort/rules/local.rules
+
+add following rule.
+
+alert icmp $HOME_NET any -> $EXTERNAL_NET any (msg:"Ping from LAN"; sid:1000001; rev:001;)
+
+save the file.
+
+Run snort
+sudo snort -A console -i ens160 -c /etc/snort/snort.conf -q 
+
+Now snort is waiting for the packets.
+
+Open another terminal and 
+ping 8.8.8.8 
+
+Press ctrl+c to terminate ping after 3 to 4 packets.
+
+Now go to the terminal where snort is running. Check if the alerts are displayed.
+press ctrl+c to terminate snort.
+
+
+
+
