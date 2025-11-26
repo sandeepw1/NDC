@@ -1,0 +1,12 @@
+Install and configure snort on any client machine.
+COnfigure rules to detect following activities.
+
+FTP to following IP address
+194.108.117.16
+ 85.188.1.133
+207.210.46.249
+
+Ping to 8.8.8.8
+DNS query for facebook instagram 
+Check using nslookup from client.
+
