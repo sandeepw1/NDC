@@ -7,7 +7,10 @@ If facebook website is attempted
 if instgram website is attempted
 If any torrent word is present in the packet
 If any ICMP packet with size more that 128 bytes is detected
+IF any ICMP packet with TTL value less than 5 is detected.
+Port scanning activity usingg threshold rule. 
+Ping flood using threshold 
 
-Check if the alerts are generated.
+Check if the alerts are generated. Use hping3 from attacker machine.
 
 Configure the Suricat in the blocking mode. Check if IP is blocked if the above traffic is detected. 
