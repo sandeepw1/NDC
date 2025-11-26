@@ -1,0 +1,13 @@
+Install suricata on the pfsense firewall. 
+Configure it as IDS to listen on WAN interface. 
+Write the rules in custom.rules to detect following activities.
+
+if a ping is done to 8.8.8.8
+If facebook website is attempted
+if instgram website is attempted
+If any torrent word is present in the packet
+If any ICMP packet with size more that 128 bytes is detected
+
+Check if the alerts are generated.
+
+Configure the Suricat in the blocking mode. Check if IP is blocked if the above traffic is detected. 
