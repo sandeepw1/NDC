@@ -22,10 +22,10 @@ sudo firewall-cmd --zone=public --add-port=80/tcp --permanent
 sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
 sudo systemctl start httpd
 ######################################################################
-NAGIOS CORE INSTALLATION COMPLETED SUCCESSFULLY !!!
+####NAGIOS CORE INSTALLATION COMPLETED SUCCESSFULLY !!!
 ######################################################################
 ######################################################################
-NOW INSTALLING NRPE AGENNT !!!! .........WAIT 
+###NOW INSTALLING NRPE AGENNT !!!! .........WAIT 
 #####################################################################
 sleep 10
 cd /tmp
@@ -42,9 +42,9 @@ sudo systemctl enable nrpe.service
 sudo systemctl start nrpe.service
 sudo /usr/local/nagios/libexec/check_nrpe -H 127.0.0.1
 ###################################################################
-NRPE INSTALLATION FINISHED !!!
+##NRPE INSTALLATION FINISHED !!!
 ###################################################################
-INSTALLING NAGIOS PLUGINS!!! .........WAIT
+##INSTALLING NAGIOS PLUGINS!!! .........WAIT
 ##################################################################
 sleep 10
 sudo yum install -y gcc glibc glibc-common make gettext automake autoconf wget openssl-devel net-snmp net-snmp-utils epel-release
@@ -58,11 +58,11 @@ sudo ./configure
 sudo make
 sudo make install
 ###############################################################
-INSTALLATION COMPLETE!!!!
+##INSTALLATION COMPLETE!!!!
 ###############################################################
 The Nagios web console username is .......  nagiosadmin
 The password is .............You Entered during this installation. !!!! Hope you remember :)
 ##############################################################################################
-Enjoy Monitoring !!!!
+##Enjoy Monitoring !!!!
 #############################################################################################
 sleep 10
