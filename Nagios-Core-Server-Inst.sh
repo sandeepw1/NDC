@@ -21,12 +21,12 @@ sudo firewall-cmd --zone=public --add-port=80/tcp
 sudo firewall-cmd --zone=public --add-port=80/tcp --permanent
 sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
 sudo systemctl start httpd
-######################################################################
-####NAGIOS CORE INSTALLATION COMPLETED SUCCESSFULLY !!!
-######################################################################
-######################################################################
-###NOW INSTALLING NRPE AGENNT !!!! .........WAIT 
-#####################################################################
+echo "######################################################################"
+echo "####NAGIOS CORE INSTALLATION COMPLETED SUCCESSFULLY !!!"
+echo "######################################################################"
+echo "######################################################################"
+echo "###NOW INSTALLING NRPE AGENNT !!!! .........WAIT" 
+echo "#####################################################################"
 sleep 10
 cd /tmp
 wget wget --no-check-certificate -O nrpe.tar.gz https://github.com/NagiosEnterprises/nrpe/archive/nrpe-4.1.0.tar.gz
@@ -41,11 +41,11 @@ sudo make install-init
 sudo systemctl enable nrpe.service
 sudo systemctl start nrpe.service
 sudo /usr/local/nagios/libexec/check_nrpe -H 127.0.0.1
-###################################################################
-##NRPE INSTALLATION FINISHED !!!
-###################################################################
-##INSTALLING NAGIOS PLUGINS!!! .........WAIT
-##################################################################
+echo "###################################################################"
+echo "##NRPE INSTALLATION FINISHED !!!"
+echo "###################################################################"
+echo "##INSTALLING NAGIOS PLUGINS!!! .........WAIT"
+echo "##################################################################"
 sleep 10
 sudo yum install -y gcc glibc glibc-common make gettext automake autoconf wget openssl-devel net-snmp net-snmp-utils epel-release
 sudo yum --enablerepo=crb,epel install perl-Net-SNMP -y
@@ -57,12 +57,12 @@ sudo ./tools/setup
 sudo ./configure
 sudo make
 sudo make install
-###############################################################
-##INSTALLATION COMPLETE!!!!
-###############################################################
-The Nagios web console username is .......  nagiosadmin
-The password is .............You Entered during this installation. !!!! Hope you remember :)
-##############################################################################################
-##Enjoy Monitoring !!!!
-#############################################################################################
+echo "###############################################################"
+echo "##INSTALLATION COMPLETE!!!!"
+echo "###############################################################"
+echo "The Nagios web console username is .......  nagiosadmin"
+echo "The password is .............You Entered during this installation. !!!! Hope you remember :)"
+echo "##############################################################################################"
+echo "##Enjoy Monitoring !!!!"
+echo "#############################################################################################"
 sleep 10
