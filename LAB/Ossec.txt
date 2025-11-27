@@ -1,0 +1,11 @@
+This lab requires 2 Linux machines.
+Put both machines network card in NAT mode. Remove manual IP address and put it on DHCP.
+If iptables is installed then stop iptables service. Disable it. Unmask the firewalld service.
+Enable firewalld service and start the firewalld service. 
+Set hostname to both the machines - server and client1 
+
+Now follow the OSSEC server installation steps.
+
+Once the OSSEC server is installed then install OSSEC client on the second machine.
+
+
