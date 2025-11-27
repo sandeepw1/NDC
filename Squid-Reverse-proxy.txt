@@ -1,3 +1,4 @@
+Install httpd web server on 2 servers. These servers will be the backend servers. Note down their IP address.
 Install squid. 
 Make a copy of the squid.conf file.
 Edit the squid.conf file 
