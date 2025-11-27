@@ -51,8 +51,8 @@ sudo yum install -y gcc glibc glibc-common make gettext automake autoconf wget o
 sudo yum --enablerepo=crb,epel install perl-Net-SNMP -y
 cd /tmp
 wget --no-check-certificate -O nagios-plugins.tar.gz https://github.com/nagios-plugins/nagios-plugins/archive/release-2.2.1.tar.gz
-tar zxf nagios-plugins.tar.g
-cd nagios-plugins-release-2.
+tar zxf nagios-plugins.tar.gz
+cd nagios-plugins-release-2.2.1
 sudo ./tools/setup
 sudo ./configure
 sudo make
