@@ -1,0 +1,3 @@
+Install 3 Windows server virtual machines. (Do not clone .. Windows does not allow clonning )
+Install 3 Centos 9 Virtual machines ( You can install one machine and then clone)
+Login to Linux machines and update.
