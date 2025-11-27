@@ -1,0 +1,28 @@
+Install squid. 
+Make a copy of the squid.conf file.
+Edit the squid.conf file 
+In the INSERT YOUR OWN RULE HERE section add following
+
+cache_peer ip.of.server1 parent 80 0 no-query originserver name=server_1            # change the ip.of.server1 with actual IP address
+acl sites_server_1 dstdomain www.example.com example.com
+cache_peer_access server_1 allow sites_server_1
+
+cache_peer ip.of.server2 parent 80 0 no-query originserver name=server_2            # change the ip.of.server2 with actual IP address
+acl sites_server_2 dstdomain www.example.net download.example.com .example.net
+cache_peer_access server_2 allow sites_server_2
+
+http_port 80 accel defaultsite=www.abc.lab
+
+Save the file.
+
+Edit /etc/hosts file. Add following.
+
+ip-of-squid-server    www.abc.lab  www.xyz.lab
+
+Save the file
+
+Start the squid service.
+
+Try
+curl http://www.abc.lab
+curl http://www.xyz.lab
