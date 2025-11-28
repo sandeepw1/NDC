@@ -1,0 +1,19 @@
+Configure 2 machines as http servers. Make sure the http service is running. Create an index.html page that 
+displays the IP address of that machine. Open port 80 in the firewall. Disable SELINUX.
+
+Configure the 3rd machine as the reverse proxy using nginx.  Disbale SELINUX.
+
+When the users access http://reverse-proxy-nat-ip  then the 1st client website should open. 
+When the users access http://reverse-proxy-nat-ip/pune then the 2nd client website should open.
+
+Now test using curl.
+
+Now configure nginx as load balancer.
+When the users access http://reverse-proxy-nat-ip multiple times then each time the webpage should be different.
+
+Check with curl.
+
+Now add weight as 7 to the first server.
+Check if 7 requests go to the first server.
+
+
