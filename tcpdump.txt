@@ -1,0 +1,43 @@
+Display available network interfaces.
+    sudo tcpdump -D
+
+Capture all traffic on the default interface
+    sudo tcpdump
+
+Capture traffic on ens160 interface 
+    sudo tcpdump -i ens160
+
+Capture a specific number (5) of packets 
+    sudo tcpdump -c 5 -i ens160
+
+Capture traffic to or from a specific host
+    sudo tcpdump host 192.168.65.128
+
+Capture traffic to a specific destination host
+    sudo tcpdump dst host 192.168.65.130
+
+Capture traffic from a specific source host
+    sudo tcpdump src host 192.168.65.132
+
+Capture traffic for a specific port
+    sudo tcpdump port 80
+
+Capture traffic to a host and specific port
+    sudo tcpdump host 192.168.65.130 and port 22
+
+Exclude traffic
+    sudo tcpdump not port 22
+
+Print packets in ASCII format.
+    sudo tcpdump -A -i ens160
+
+Save captured packets to a file 
+    sudo tcpdump -w capture.pcap -i ens160
+
+Read packets from a saved file.
+    sudo tcpdump -r capture.pcap
+
+
+
+
+
