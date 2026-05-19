@@ -50,12 +50,11 @@ set_var EASYRSA_DIGEST "sha256"
  sudo ./easyrsa sign-req client client1
 
 ###############Copy Certificates to client directory #############
- cp pki/ca.crt /etc/openvpn/client/
+ sudo cp pki/ca.crt /etc/openvpn/client/
  sudo cp pki/ca.crt /etc/openvpn/client/
  sudo cp pki/issued/client1.crt /etc/openvpn/client
- sudo cp pki/issued/client1.key /etc/openvpn/client
  sudo cp pki/private/client1.key /etc/openvpn/client
-
+ 
 ##################### Create the server.conf file #################
  sudo vi /etc/openvpn/server/server.conf
 ############## Copy paste following in the file ##################     
@@ -128,21 +127,18 @@ verb 3
  sudo firewall-cmd --permanent --direct --passthrough ipv4 -t nat -A POSTROUTING -s 10.8.0.0/24 -o ens160 -j MASQUERADE
  sudo firewall-cmd --reload
  
-Assign manual IP address to client without any gateway. (This lab is done using VMWare)
 sudo scp -r /etc/openvpn/client   admin@client-ip:/home/admin
 
 
 ######################## Perform this on the client computer ###############################
-
-
-sudo dnf install epel-release -y
 sudo dnf install epel-release -y
 sudo dnf install openvpn -y
 
-sudo cp /home/admin/ca.crt /etc/openvpn/client
-sudo cp /home/admin/client1.crt /etc/openvpn/client
-sudo cp /home/admin/client1.key /etc/openvpn/client
-sudo cp /home/admin/client1.ovpn /etc/openvpn/client
+sudo cp /home/admin/client/ca.crt /etc/openvpn/client
+sudo cp /home/admin/client/client1.crt /etc/openvpn/client
+sudo cp /home/admin/client/client1.key /etc/openvpn/client
+sudo cp /home/admin/client/client1.ovpn /etc/openvpn/client
+
 
 openvpn --config client1.ovpn
 
@@ -150,3 +146,5 @@ openvpn --config client1.ovpn
 
 Open another terminal
 check with ip a
+Ping to Internal Client IP address
+If not working then Assign manual IP address to client without any gateway. (This lab is done using VMWare)
